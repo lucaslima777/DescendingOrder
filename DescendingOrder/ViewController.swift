@@ -9,10 +9,27 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var buttonView: UIButton!
+    @IBOutlet weak var field: UITextField!
+    var array: Array<Any>?
+    var arrayReverse: Array<Any>?
+    
 
+    
+    @objc func verify(sender: UIButton!) {
+        
+        openAlert()
+    }
+    
+    func descendingOrder(of number: Int) -> Int {
+        return Int(String("\(number)".characters.sorted(by: >)))!
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        buttonView.addTarget(self, action:#selector(self.verify(sender:)), for: .touchUpInside)
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +37,12 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func openAlert(){
+        let alertController = UIAlertController(title: "Result", message: descendingOrder(of: Int(field.text!)!).description, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: { _ in}))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 
 }
 
